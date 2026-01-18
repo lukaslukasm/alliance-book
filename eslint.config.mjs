@@ -13,6 +13,9 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: { "prefer-template": "warn" },
+  },
 ]);
 
 export default eslintConfig;
