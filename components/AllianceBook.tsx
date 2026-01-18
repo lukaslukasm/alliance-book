@@ -5,6 +5,10 @@ import { Provider } from "react-redux";
 import StoreInitializer from "./StoreInitializer";
 import PeopleList from "./PeopleList";
 
+/**
+ * Root Client-side component. Renders the whole Alliance Book.
+ *
+ */
 function AllianceBook({ characters }: { characters: Character[] }) {
   return (
     <Provider store={store}>

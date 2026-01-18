@@ -2,6 +2,10 @@ import { getIdFromUrl } from "@/lib/utils";
 import { Character, SWAPICharacterRaw } from "@/types/types";
 import axios from "axios";
 
+/**
+ * Exhaustively fetches data from the URL, merges results and enhances them with ids.
+ *
+ */
 export async function getCharacters(url: string = ""): Promise<Character[]> {
   if (!url) throw new Error("No URL was provided.");
 

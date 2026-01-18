@@ -5,6 +5,10 @@ import { RootState } from "@/lib/store";
 import { Character } from "@/types/types";
 import { useDispatch, useSelector } from "react-redux";
 
+/**
+ * Stores the data into Redux Store immediatelly after Hydration.
+ *
+ */
 export default function StoreInitializer({ data }: { data: Character[] }) {
   const dispatch = useDispatch();
 

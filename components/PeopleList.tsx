@@ -3,6 +3,10 @@ import { RootState } from "@/lib/store";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
+/**
+ * Lists characters from the Redux store.
+ *
+ */
 export default function PeopleList() {
   const characters = useSelector((state: RootState) => state.characters.items);
   return (
