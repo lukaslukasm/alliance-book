@@ -39,6 +39,11 @@ export const getCharacters = async (url: string = ""): Promise<Character[]> => {
   );
 };
 
+/**
+ * case-insensitive text search. Returns an array of Characters whose
+ * name, birth_year, gender, hair_color, eye_color or a skin_color includes the query.
+ *
+ */
 export const searchCharacters = cache(
   (characters: Character[], searchQuery: string): Character[] => {
     return characters.filter(
