@@ -1,4 +1,4 @@
-import AllianceBook from "@/components/AllianceBook";
+import AllianceBook from "@/components/alliance-book";
 
 import { getCharacters } from "@/services/characters.service";
 import { Character } from "@/types/types";
