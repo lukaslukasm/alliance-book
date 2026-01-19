@@ -7,8 +7,13 @@ A small journal of all people in Star Wars movies.
 
 ## Pinned Decisions
 
-- **May the SSG be with you.** The character list is ~99% immutable. This data likely only changes with a new Star Wars release, and even then, API updates are not guaranteed. By fetching at build-time, I’ve prioritized performance boost of SSG over the slim risk of stale data, which might happen years down the line. Given the velocity of the React ecosystem, it is far more likely that dependency maintenance will be required before the data itself becomes outdated.
-- **Do Server Render, or do not. There is no try.** Due to low amount of characters, searching/filtering requirements (high interactivity with data) the app saves the data into a redux store and becomes client-side as high as it can in the component tree. Benefits include zero-latency and saved development hours on fighting the latency. (due to complicated nature of modern server-side react)
+- **Wars not make one great.** [SWAPI](https://swapi.py4e.com/) supports search only and has paging hard-coded to 10 elms at a time. With our needs, (search, filters, different pagination offset) the capabilities of the API are simply not sufficient. In order to prevent another war story under my belt, a decision to aggregate all of the needed data at once and work with them in peace in the server memory was made.
+
+- ~~**SSG for data aggregation + client-side for everything else.**~~ That was the plan, because given the close-to-immutable data and a quite small data set (~200 objects) this approach would bring zero latency and minimal server load. But mid-way through the implementation I've realized that that's probably not what you want to see. The point here is to show my skills with the tools.
+
+- **Use The ~~Force~~ URL Luke.** Makes the search/filters configuration shareable and from my experiece, that's the best-practice solution for search and filters on e-shops.
+
+- **May the Force (of Next.js) be with you.** Using `searchParams` puts us strictly into SSR teritory, which executes the heavy data aggregation request-time. That is not ideal. However, utilizing Next's force-cache on the `fetch()` and clever execution of the data aggregation inside `generateStaticProps` (even without utilizing the result), we get a warm server cache with all of the data at build-time and all of the fetches afterwards hit just the cache.
 
 ## Run it locally
 
