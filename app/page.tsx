@@ -7,6 +7,12 @@ type HomepageProps = {
   searchParams: Promise<SearchParams>;
 };
 
+// warming the cache at build time
+export async function generateStaticParams() {
+  await getCharacters(process.env.DATA_URL);
+  return [];
+}
+
 export default async function Home({ searchParams }: HomepageProps) {
   const resolvedSearchParams = await searchParams;
   const characters: Character[] = await getCharacters(process.env.DATA_URL);
