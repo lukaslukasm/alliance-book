@@ -1,8 +1,5 @@
 "use client";
-import { store } from "@/lib/store";
 import { Character } from "@/types/types";
-import { Provider } from "react-redux";
-import StoreInitializer from "./store-initializer";
 import PeopleList from "./people-list";
 import {
   Card,
@@ -33,10 +30,7 @@ function AllianceBook({ characters }: { characters: Character[] }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Provider store={store}>
-          <StoreInitializer data={characters} />
-          <PeopleList />
-        </Provider>
+        <PeopleList characters={characters} />
       </CardContent>
       <CardFooter>
         <Pagination>
