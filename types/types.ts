@@ -20,3 +20,8 @@ export interface SWAPICharacterRaw {
 export interface Character extends SWAPICharacterRaw {
   id: number;
 }
+
+export type SearchParams = {
+  search?: string;
+  page?: number;
+};
