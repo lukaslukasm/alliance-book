@@ -25,7 +25,7 @@ import {
  */
 function AllianceBook({ characters }: { characters: Character[] }) {
   return (
-    <Card className="w-[min(100%,50rem)]">
+    <Card className="w-[min(100%,50rem)] max-sm:py-3 max-sm:gap-3">
       <CardHeader>
         <CardTitle>The Alliance Book</CardTitle>
         <CardDescription>

@@ -11,7 +11,7 @@ import { CharacterTile } from "./character-tile";
 export default function PeopleList() {
   const characters = useSelector((state: RootState) => state.characters.items);
   return (
-    <ItemGroup className="gap-3 flex-wrap flex-row justify-center">
+    <ItemGroup className="gap-2 sm:gap-3 justify-center grid grid-cols-3 sm:grid-cols-4">
       {characters
         // .filter((ch) => ch.id <= 12)
         .map((character) => (

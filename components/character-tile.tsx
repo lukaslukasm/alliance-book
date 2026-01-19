@@ -15,7 +15,7 @@ export function CharacterTile({ character }: { character: Character }) {
     <Item
       key={character.name}
       variant="outline"
-      className="sm:w-44 items-start flex w-32"
+      className="max-w-44 items-start flex"
     >
       <ItemHeader>
         <Image
