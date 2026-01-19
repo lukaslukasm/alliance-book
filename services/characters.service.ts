@@ -46,14 +46,8 @@ export const getCharacters = async (url: string = ""): Promise<Character[]> => {
  */
 export const searchCharacters = cache(
   (characters: Character[], searchQuery: string): Character[] => {
-    return characters.filter(
-      (ch) =>
-        ch.name.toLowerCase().includes(searchQuery) ||
-        ch.birth_year.toLowerCase().includes(searchQuery) ||
-        ch.gender.toLowerCase().includes(searchQuery) ||
-        ch.hair_color.toLowerCase().includes(searchQuery) ||
-        ch.eye_color.toLowerCase().includes(searchQuery) ||
-        ch.skin_color.toLowerCase().includes(searchQuery),
+    return characters.filter((ch) =>
+      ch.name.toLowerCase().includes(searchQuery),
     );
   },
 );
