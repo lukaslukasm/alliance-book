@@ -2,8 +2,8 @@
 import { store } from "@/lib/store";
 import { Character } from "@/types/types";
 import { Provider } from "react-redux";
-import StoreInitializer from "./StoreInitializer";
-import PeopleList from "./PeopleList";
+import StoreInitializer from "./store-initializer";
+import PeopleList from "./people-list";
 
 /**
  * Root Client-side component. Renders the whole Alliance Book.
