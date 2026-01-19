@@ -1,8 +1,4 @@
-"use client";
-import { store } from "@/lib/store";
 import { Character } from "@/types/types";
-import { Provider } from "react-redux";
-import StoreInitializer from "./store-initializer";
 import PeopleList from "./people-list";
 import {
   Card,
@@ -12,18 +8,23 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from "./ui/pagination";
+
+import PaginationComponent from "./pagination-component";
+
+export type AllianceBookProps = {
+  characters: Character[];
+  page: number;
+};
+
+const PAGINATION_OFFSET = 12;
 
 /**
  * Root Client-side component. Renders the whole Alliance Book.
  *
  */
-function AllianceBook({ characters }: { characters: Character[] }) {
+function AllianceBook({ characters, page }: AllianceBookProps) {
+  const pageCount = Math.ceil(characters.length / PAGINATION_OFFSET);
+
   return (
     <Card className="w-[min(100%,50rem)] max-sm:py-3 max-sm:gap-3">
       <CardHeader>
@@ -33,25 +34,15 @@ function AllianceBook({ characters }: { characters: Character[] }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Provider store={store}>
-          <StoreInitializer data={characters} />
-          <PeopleList />
-        </Provider>
+        <PeopleList
+          characters={characters.slice(
+            (page - 1) * PAGINATION_OFFSET,
+            page * PAGINATION_OFFSET,
+          )}
+        />
       </CardContent>
       <CardFooter>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationLink href="#page=1">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#page=1">2</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#page=1">3</PaginationLink>
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <PaginationComponent pageCount={pageCount} currentPage={page} />
       </CardFooter>
     </Card>
   );

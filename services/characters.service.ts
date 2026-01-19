@@ -1,30 +1,34 @@
 import { getIdFromUrl } from "@/lib/utils";
 import { Character, SWAPICharacterRaw } from "@/types/types";
-import axios from "axios";
 
 /**
  * Exhaustively fetches data from the URL, merges results and enhances them with ids.
  *
  */
-export async function getCharacters(url: string = ""): Promise<Character[]> {
+export const getCharacters = async (url: string = ""): Promise<Character[]> => {
   if (!url) throw new Error("No URL was provided.");
 
-  const firstPage = await axios.get(url);
-  const totalCount = firstPage.data.count;
+  const firstPage = await fetch(url, { cache: "force-cache" });
+  const firstPageData = await firstPage.json();
+  const totalCount = firstPageData.count;
   const totalPages = Math.ceil(totalCount / 10);
-
   const pagePromises = [];
   for (let i = 2; i <= totalPages; i++) {
-    pagePromises.push(axios.get(`${url}?page=${i}`));
+    pagePromises.push(
+      fetch(`${url}?page=${i}`, { cache: "force-cache" }).then((res) =>
+        res.json(),
+      ),
+    );
   }
 
   const remainingPages = await Promise.all(pagePromises);
 
   const allResults = [
-    ...firstPage.data.results,
-    ...remainingPages.flatMap((res) => res.data.results),
+    ...firstPageData.results,
+    ...remainingPages.flatMap((res) => res.results),
   ];
 
+  // return [];
   return allResults.map(
     (char: SWAPICharacterRaw) =>
       ({
@@ -32,4 +36,4 @@ export async function getCharacters(url: string = ""): Promise<Character[]> {
         ...char,
       }) as Character,
   );
-}
+};

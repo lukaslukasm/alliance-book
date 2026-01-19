@@ -17,13 +17,14 @@ export function CharacterTile({ character }: { character: Character }) {
       variant="outline"
       className="max-w-44 items-start flex"
     >
-      <ItemHeader>
+      <ItemHeader className="relative w-full aspect-5/7">
         <Image
           src={`${process.env.NEXT_PUBLIC_IMG_URL ?? ""}${character.id}.jpg`}
           alt={character.name}
-          width={128}
-          height={128}
+          placeholder="blur"
+          blurDataURL="/assets/placeholder.webp"
           className=" w-full rounded-sm object-cover"
+          fill
         />
       </ItemHeader>
       <ItemContent>
