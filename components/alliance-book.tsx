@@ -10,6 +10,7 @@ import {
 } from "./ui/card";
 
 import PaginationComponent from "./pagination-component";
+import Search from "./search";
 
 export type AllianceBookProps = {
   characters: Character[];
@@ -32,6 +33,7 @@ function AllianceBook({ characters, page }: AllianceBookProps) {
         <CardDescription>
           Browse and learn about the characters from the Star Wars Universe.
         </CardDescription>
+        <Search />
       </CardHeader>
       <CardContent>
         <PeopleList
