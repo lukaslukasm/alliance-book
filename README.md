@@ -11,7 +11,7 @@ A small journal of all people in Star Wars movies.
 
 - ~~**SSG for data aggregation + client-side for everything else.**~~ That was the plan, because given the close-to-immutable data and a quite small data set (~200 objects) this approach would bring zero latency and minimal server load. But mid-way through the implementation I've realized that that's probably not what you want to see. The point here is to show my skills with the tools.
 
-- **Use The ~~Force~~ URL Luke.** Makes the search/filters configuration shareable and from my experiece, that's the best-practice solution for search and filters on e-shops.
+- **Use The ~~Force~~ URL Luke.** URL-based state is in my opinion the best practice solution for search and filters on e-shops. Not only it enhances the UX for the user, it also allows for a better SSR utilization of Next.js.
 
 - **May the Force (of Next.js) be with you.** Using `searchParams` puts us strictly into SSR teritory, which executes the heavy data aggregation request-time. That is not ideal. However, utilizing Next's force-cache on the `fetch()` and clever execution of the data aggregation inside `generateStaticProps` (even without utilizing the result), we get a warm server cache with all of the data at build-time and all of the fetches afterwards hit just the cache.
 
