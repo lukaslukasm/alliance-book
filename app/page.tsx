@@ -1,4 +1,5 @@
-import AllianceBook from "@/components/AllianceBook";
+import AllianceBook from "@/components/alliance-book";
+import { TypographyH1 } from "@/components/ui/typography-h1";
 
 import { getCharacters } from "@/services/characters.service";
 import { Character } from "@/types/types";
@@ -6,5 +7,10 @@ import { Character } from "@/types/types";
 export default async function Home() {
   const characters: Character[] = await getCharacters(process.env.DATA_URL);
 
-  return <AllianceBook characters={characters} />;
+  return (
+    <main className="flex flex-col gap-4 px-2 my-8 items-center">
+      <TypographyH1>The Alliance Book</TypographyH1>
+      <AllianceBook characters={characters} />
+    </main>
+  );
 }
