@@ -1,8 +1,11 @@
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
 } from "./ui/pagination";
 
 export type PaginationComponentProps = {
@@ -11,24 +14,43 @@ export type PaginationComponentProps = {
 };
 
 export default function PaginationComponent({
-  currentPage = 1,
+  currentPage,
   pageCount,
 }: PaginationComponentProps) {
   return (
     <Pagination>
       <PaginationContent>
-        {Array(pageCount)
-          .fill("")
-          .map((item, index) => (
-            <PaginationItem key={`pageLink-${+index}`}>
-              <PaginationLink
-                href={`?page=${index + 1}`}
-                isActive={currentPage == index + 1}
-              >
-                {index + 1}
+        {currentPage > 1 && (
+          <>
+            <PaginationItem>
+              <PaginationPrevious href={`?page=${currentPage - 1}`} />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href={`?page=${currentPage - 1}`}>
+                {currentPage - 1}
               </PaginationLink>
             </PaginationItem>
-          ))}
+          </>
+        )}
+        <PaginationItem>
+          <PaginationLink href={`?page=${currentPage}`} isActive>
+            {currentPage}
+          </PaginationLink>
+        </PaginationItem>
+        {currentPage < pageCount && (
+          <>
+            <PaginationItem>
+              <PaginationLink href={`?page=${currentPage + 1}`}>
+                {Number(currentPage + 1)}
+              </PaginationLink>
+            </PaginationItem>
+            {currentPage + 1 < pageCount && <PaginationEllipsis />}
+
+            <PaginationItem>
+              <PaginationNext href={`?page=${currentPage - 1}`} />
+            </PaginationItem>
+          </>
+        )}
       </PaginationContent>
     </Pagination>
   );

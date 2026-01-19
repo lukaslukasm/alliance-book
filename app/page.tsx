@@ -11,7 +11,7 @@ export type HomepageProps = {
 };
 
 export default async function Home({ searchParams }: HomepageProps) {
-  const page = (await searchParams).page;
+  const page = Number((await searchParams).page ?? 1);
 
   const characters: Character[] = await getCharacters(process.env.DATA_URL);
 
