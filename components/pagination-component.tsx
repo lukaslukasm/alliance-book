@@ -47,7 +47,7 @@ export default function PaginationComponent({
             {currentPage + 1 < pageCount && <PaginationEllipsis />}
 
             <PaginationItem>
-              <PaginationNext href={`?page=${currentPage - 1}`} />
+              <PaginationNext href={`?page=${currentPage + 1}`} />
             </PaginationItem>
           </>
         )}
