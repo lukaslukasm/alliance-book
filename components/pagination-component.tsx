@@ -1,3 +1,4 @@
+import { SearchParams } from "@/types/types";
 import {
   Pagination,
   PaginationContent,
@@ -11,43 +12,55 @@ import {
 export type PaginationComponentProps = {
   currentPage: number;
   pageCount: number;
+  searchParams: SearchParams;
 };
 
 export default function PaginationComponent({
   currentPage,
   pageCount,
+  searchParams,
 }: PaginationComponentProps) {
+  function createURL(targetPageId: number) {
+    const newURL = new URLSearchParams();
+
+    Object.entries(searchParams).forEach(([key, value]) => {
+      newURL.set(key, `${value}`);
+    });
+    newURL.set("page", targetPageId.toString());
+
+    return `?${newURL.toString()}`;
+  }
+
   return (
     <Pagination>
       <PaginationContent>
         {currentPage > 1 && (
           <>
             <PaginationItem>
-              <PaginationPrevious href={`?page=${currentPage - 1}`} />
+              <PaginationPrevious href={createURL(currentPage - 1)} />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink href={`?page=${currentPage - 1}`}>
+              <PaginationLink href={createURL(currentPage - 1)}>
                 {currentPage - 1}
               </PaginationLink>
             </PaginationItem>
           </>
         )}
         <PaginationItem>
-          <PaginationLink href={`?page=${currentPage}`} isActive>
+          <PaginationLink href={createURL(currentPage)} isActive>
             {currentPage}
           </PaginationLink>
         </PaginationItem>
         {currentPage < pageCount && (
           <>
             <PaginationItem>
-              <PaginationLink href={`?page=${currentPage + 1}`}>
+              <PaginationLink href={createURL(currentPage + 1)}>
                 {Number(currentPage + 1)}
               </PaginationLink>
             </PaginationItem>
             {currentPage + 1 < pageCount && <PaginationEllipsis />}
-
             <PaginationItem>
-              <PaginationNext href={`?page=${currentPage + 1}`} />
+              <PaginationNext href={createURL(currentPage + 1)} />
             </PaginationItem>
           </>
         )}

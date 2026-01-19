@@ -20,9 +20,10 @@ export default function Search() {
 
     if (term) {
       params.set("search", term);
-      params.set("page", "1");
+      params.delete("page");
     } else {
       params.delete("search");
+      params.delete("page");
     }
 
     startTransition(() => {
