@@ -9,8 +9,8 @@ import { Input } from "./ui/input";
  * Returns a Search form component.
  *
  */
-export default function Search() {
-  const [query, setQuery] = useState("");
+export default function Search({ value }: { value?: string }) {
+  const [query, setQuery] = useState(value ?? "");
   const [, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const router = useRouter();

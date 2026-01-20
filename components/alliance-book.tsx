@@ -42,7 +42,7 @@ function AllianceBook({
         <CardDescription>
           Browse and learn about the characters from the Star Wars Universe.
         </CardDescription>
-        <Search />
+        <Search value={searchParams.search} />
         <div className="grid sm:grid-cols-2 sm:gap-3 gap-2">
           <MultiSelectFilter
             attribute="gender"
