@@ -22,9 +22,17 @@ export default function PaginationComponent({
 }: PaginationComponentProps) {
   function createURL(targetPageId: number) {
     const newURL = new URLSearchParams();
+    const flattenedFilters = Object.entries(searchParams).flatMap(
+      ([key, value]) => {
+        if (Array.isArray(value)) {
+          return value.map((v) => [key, v]);
+        }
+        return [[key, value]];
+      },
+    );
 
-    Object.entries(searchParams).forEach(([key, value]) => {
-      newURL.set(key, `${value}`);
+    flattenedFilters.forEach(([key, value]) => {
+      newURL.append(key, `${value}`);
     });
     newURL.set("page", targetPageId.toString());
 
