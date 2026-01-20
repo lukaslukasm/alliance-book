@@ -1,3 +1,5 @@
+import { FILTERABLE_ATTRIBUTES } from "@/lib/constants";
+
 export interface SWAPICharacterRaw {
   name: string;
   height: number;
@@ -29,7 +31,14 @@ export interface Character extends Omit<
   starshipsIds: number[];
 }
 
-export type SearchParams = Partial<Character> & {
+export type SearchParams = typeof FILTERABLE_ATTRIBUTES & {
   search?: string;
   page?: number;
 };
+
+export type CharacterGender =
+  | "male"
+  | "female"
+  | "n/a"
+  | "hermaphrodite"
+  | "none";
