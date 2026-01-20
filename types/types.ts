@@ -24,4 +24,5 @@ export interface Character extends SWAPICharacterRaw {
 export type SearchParams = {
   search?: string;
   page?: number;
+  homeworld?: string;
 };

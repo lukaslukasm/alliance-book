@@ -51,3 +51,15 @@ export const searchCharacters = cache(
     );
   },
 );
+
+/**
+ * Filters the characters in the character array by a provided value of the provided attribute.
+ *
+ */
+export function filterCharacters<K extends keyof Character>(
+  characters: Character[],
+  attribute: K,
+  value: Character[K],
+): Character[] {
+  return characters.filter((ch) => ch[attribute] == value);
+}
