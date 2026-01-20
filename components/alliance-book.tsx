@@ -11,6 +11,8 @@ import {
 
 import PaginationComponent from "./pagination-component";
 import Search from "./search";
+import MultiSelectFilter from "./filters/multi-select-filter";
+import { GENDERS } from "@/lib/constants";
 
 export type AllianceBookProps = {
   characters: Character[];
@@ -35,6 +37,11 @@ function AllianceBook({ characters, page, searchParams }: AllianceBookProps) {
           Browse and learn about the characters from the Star Wars Universe.
         </CardDescription>
         <Search />
+        <MultiSelectFilter
+          attribute="gender"
+          placeholder="Filter Genders"
+          options={GENDERS.map((gender) => ({ value: gender, label: gender }))}
+        />
       </CardHeader>
       <CardContent>
         <PeopleList
