@@ -28,15 +28,24 @@ export const getCharacters = async (url: string = ""): Promise<Character[]> => {
     ...firstPageData.results,
     ...remainingPages.flatMap((res) => res.results),
   ];
-
-  // return [];
-  return allResults.map(
-    (char: SWAPICharacterRaw) =>
-      ({
-        id: getIdFromUrl(char.url),
-        ...char,
-      }) as Character,
-  );
+  return allResults.map((char: SWAPICharacterRaw) => {
+    return {
+      id: getIdFromUrl(char.url),
+      homeworldId: getIdFromUrl(char.homeworld),
+      vehiclesIds: char.vehicles.map((v) => getIdFromUrl(v)),
+      filmsIds: char.films.map((f) => getIdFromUrl(f)),
+      starshipsIds: char.starships.map((s) => getIdFromUrl(s)),
+      speciesId: char.species[0] ? getIdFromUrl(char.species[0]) : null,
+      hair_color: char.hair_color,
+      eye_color: char.eye_color,
+      mass: char.mass,
+      height: char.height,
+      gender: char.gender,
+      name: char.name,
+      skin_color: char.skin_color,
+      birth_year: char.birth_year,
+    } as Character;
+  });
 };
 
 /**

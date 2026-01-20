@@ -17,8 +17,16 @@ export interface SWAPICharacterRaw {
   edited: string;
 }
 // todo add fields we'll have
-export interface Character extends SWAPICharacterRaw {
+export interface Character extends Omit<
+  SWAPICharacterRaw,
+  "homeworld" | "films" | "url" | "created" | "edited"
+> {
   id: number;
+  homeworldId: number;
+  filmsIds: number[];
+  speciesId: number | null;
+  vehiclesIds: number[];
+  starshipsIds: number[];
 }
 
 export type SearchParams = Partial<Character> & {

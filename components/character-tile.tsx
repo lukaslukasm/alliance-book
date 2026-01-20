@@ -8,7 +8,6 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Character } from "@/types/types";
-import { getIdFromUrl } from "@/lib/utils";
 
 export function CharacterTile({ character }: { character: Character }) {
   return (
@@ -30,7 +29,7 @@ export function CharacterTile({ character }: { character: Character }) {
       <ItemContent>
         <ItemTitle>{character.name}</ItemTitle>
         <ItemDescription>
-          {character.species[0] && getIdFromUrl(character.species[0]) === 2
+          {character.speciesId && character.speciesId === 2
             ? "Created"
             : "Born"}
           : {character.birth_year}
