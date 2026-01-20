@@ -1,5 +1,25 @@
 import { FILTERABLE_ATTRIBUTES } from "@/lib/constants";
 
+/**
+ * Represents a Planet resource from the Star Wars API.
+ */
+export interface SWAPIPlanetRaw {
+  name: string;
+  rotation_period: string;
+  orbital_period: string;
+  diameter: string;
+  climate: string;
+  gravity: string;
+  terrain: string;
+  surface_water: string;
+  poputation: string;
+  residents: string[];
+  films: string[];
+  created: string;
+  edited: string;
+  url: string;
+}
+
 export interface SWAPICharacterRaw {
   name: string;
   height: number;
@@ -42,3 +62,8 @@ export type CharacterGender =
   | "n/a"
   | "hermaphrodite"
   | "none";
+
+export type Planet = {
+  id: number;
+  name: string;
+};
