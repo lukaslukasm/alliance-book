@@ -16,13 +16,12 @@ export interface SWAPICharacterRaw {
   created: string;
   edited: string;
 }
-
+// todo add fields we'll have
 export interface Character extends SWAPICharacterRaw {
   id: number;
 }
 
-export type SearchParams = {
+export type SearchParams = Partial<Character> & {
   search?: string;
   page?: number;
-  homeworld?: string;
 };

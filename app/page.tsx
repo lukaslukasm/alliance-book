@@ -11,6 +11,8 @@ type HomepageProps = {
   searchParams: Promise<SearchParams>;
 };
 
+const FILTERABLE_KEYS: (keyof Character)[] = ["homeworldId", "gender"];
+
 // warming the cache at build time
 export async function generateStaticParams() {
   await getCharacters(process.env.DATA_URL);
@@ -31,12 +33,16 @@ export default async function Home({ searchParams }: HomepageProps) {
     );
 
   // filters
-  if (resolvedSearchParams.homeworld)
-    filteredCharacters = filterCharacters(
-      searchedCharacters ?? characters,
-      "homeworld",
-      resolvedSearchParams.homeworld.toLowerCase(),
-    );
+  FILTERABLE_KEYS.forEach((key) => {
+    const paramValue = resolvedSearchParams[key];
+
+    if (paramValue)
+      filteredCharacters = filterCharacters(
+        searchedCharacters ?? characters,
+        key,
+        paramValue,
+      );
+  });
 
   return (
     <main className="flex flex-col gap-4 px-2 my-8 items-center">
