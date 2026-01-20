@@ -59,7 +59,12 @@ export const searchCharacters = cache(
 export function filterCharacters<K extends keyof Character>(
   characters: Character[],
   attribute: K,
-  value: Character[K],
+  value: number | string,
 ): Character[] {
-  return characters.filter((ch) => ch[attribute] == value);
+  return characters.filter((ch) => {
+    const typedValue =
+      typeof ch[attribute] === "number" ? Number(value) : value;
+
+    return ch[attribute] === typedValue;
+  });
 }
