@@ -69,17 +69,18 @@ export const searchCharacters = cache(
 export function filterCharacters(
   characters: Character[],
   attribute: (typeof FILTERABLE_ATTRIBUTES)[number],
-  value: number | string | number[] | string[],
+  value: number | string | string[],
 ): Character[] {
-  if (typeof value !== "object")
+  if (!Array.isArray(value))
     return characters.filter((ch) => {
       const typedValue =
         typeof ch[attribute] === "number" ? Number(value) : value;
 
       return ch[attribute] === typedValue;
     });
-
-  return characters.filter((ch) => {
-    return (value as unknown[]).includes(ch[attribute]);
-  });
+  else {
+    return characters.filter((ch) => {
+      return value.includes(String(ch[attribute]));
+    });
+  }
 }

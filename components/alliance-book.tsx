@@ -1,4 +1,4 @@
-import { Character, SearchParams } from "@/types/types";
+import { Character, Planet, SearchParams } from "@/types/types";
 import PeopleList from "./people-list";
 import {
   Card,
@@ -18,6 +18,7 @@ export type AllianceBookProps = {
   characters: Character[];
   page: number;
   searchParams: SearchParams;
+  planets: Planet[];
 };
 
 const PAGINATION_OFFSET = 12;
@@ -26,7 +27,12 @@ const PAGINATION_OFFSET = 12;
  * Root Client-side component. Renders the whole Alliance Book.
  *
  */
-function AllianceBook({ characters, page, searchParams }: AllianceBookProps) {
+function AllianceBook({
+  characters,
+  page,
+  searchParams,
+  planets,
+}: AllianceBookProps) {
   const pageCount = Math.ceil(characters.length / PAGINATION_OFFSET);
 
   return (
@@ -37,11 +43,25 @@ function AllianceBook({ characters, page, searchParams }: AllianceBookProps) {
           Browse and learn about the characters from the Star Wars Universe.
         </CardDescription>
         <Search />
-        <MultiSelectFilter
-          attribute="gender"
-          placeholder="Filter Genders"
-          options={GENDERS.map((gender) => ({ value: gender, label: gender }))}
-        />
+        <div className="grid sm:grid-cols-2 sm:gap-3 gap-2">
+          <MultiSelectFilter
+            attribute="gender"
+            searchable={false}
+            placeholder="Filter Genders"
+            options={GENDERS.map((gender) => ({
+              value: gender,
+              label: gender,
+            }))}
+          />
+          <MultiSelectFilter
+            attribute="homeworldId"
+            placeholder="Filter Homeworlds"
+            options={planets.map((planet) => ({
+              value: String(planet.id),
+              label: planet.name,
+            }))}
+          />
+        </div>
       </CardHeader>
       <CardContent>
         <PeopleList
