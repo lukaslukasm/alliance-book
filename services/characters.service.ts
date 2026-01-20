@@ -1,3 +1,4 @@
+import { FILTERABLE_ATTRIBUTES } from "@/lib/constants";
 import { getIdFromUrl } from "@/lib/utils";
 import { Character, SWAPICharacterRaw } from "@/types/types";
 import { cache } from "react";
@@ -65,15 +66,20 @@ export const searchCharacters = cache(
  * Filters the characters in the character array by a provided value of the provided attribute.
  *
  */
-export function filterCharacters<K extends keyof Character>(
+export function filterCharacters(
   characters: Character[],
-  attribute: K,
-  value: number | string,
+  attribute: (typeof FILTERABLE_ATTRIBUTES)[number],
+  value: number | string | number[] | string[],
 ): Character[] {
-  return characters.filter((ch) => {
-    const typedValue =
-      typeof ch[attribute] === "number" ? Number(value) : value;
+  if (typeof value !== "object")
+    return characters.filter((ch) => {
+      const typedValue =
+        typeof ch[attribute] === "number" ? Number(value) : value;
 
-    return ch[attribute] === typedValue;
+      return ch[attribute] === typedValue;
+    });
+
+  return characters.filter((ch) => {
+    return (value as unknown[]).includes(ch[attribute]);
   });
 }
