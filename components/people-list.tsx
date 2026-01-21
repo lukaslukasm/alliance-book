@@ -1,7 +1,7 @@
 "use client";
 import { ItemGroup } from "./ui/item";
-import { CharacterTile } from "./character-tile";
-import { Character } from "@/types/types";
+import { Character, Planet } from "@/types/types";
+import { CharacterCard } from "./character-card";
 
 /**
  * Lists characters from the Redux store.
@@ -9,13 +9,19 @@ import { Character } from "@/types/types";
  */
 export default function PeopleList({
   characters,
+  planets,
 }: {
   characters: Character[];
+  planets: Planet[];
 }) {
   return (
-    <ItemGroup className="gap-2 sm:gap-3 justify-center grid grid-cols-3 sm:grid-cols-4">
+    <ItemGroup className="gap-2 sm:gap-3 justify-center grid grid-cols-2 items-stretch sm:grid-cols-3 md:grid-cols-4">
       {characters.map((character) => (
-        <CharacterTile character={character} key={character.id} />
+        <CharacterCard
+          character={character}
+          key={character.id}
+          planets={planets}
+        />
       ))}
     </ItemGroup>
   );

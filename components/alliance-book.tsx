@@ -48,6 +48,7 @@ function AllianceBook({
       />
       <CardContent>
         <PeopleList
+          planets={planets}
           characters={characters.slice(
             (page - 1) * PAGINATION_OFFSET,
             page * PAGINATION_OFFSET,
