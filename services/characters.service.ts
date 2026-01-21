@@ -1,10 +1,8 @@
-import { FILTERABLE_ATTRIBUTES } from "@/lib/constants";
 import { getIdFromUrl } from "@/lib/utils";
 import { Character, SWAPICharacterRaw } from "@/types/types";
-import { cache } from "react";
 
 /**
- * Exhaustively fetches data from the URL, merges results and enhances them with ids.
+ * Exhaustively fetches data from the URL and aggregates the data into Character object array.
  *
  */
 export const getCharacters = async (url: string = ""): Promise<Character[]> => {
@@ -13,7 +11,7 @@ export const getCharacters = async (url: string = ""): Promise<Character[]> => {
   const firstPage = await fetch(url, { cache: "force-cache" });
   const firstPageData = await firstPage.json();
   const totalCount = firstPageData.count;
-  const totalPages = Math.ceil(totalCount / 10);
+  const totalPages = Math.ceil(totalCount / firstPageData.results.length);
   const pagePromises = [];
   for (let i = 2; i <= totalPages; i++) {
     pagePromises.push(
@@ -48,39 +46,3 @@ export const getCharacters = async (url: string = ""): Promise<Character[]> => {
     } as Character;
   });
 };
-
-/**
- * case-insensitive text search. Returns an array of Characters whose
- * name, birth_year, gender, hair_color, eye_color or a skin_color includes the query.
- *
- */
-export const searchCharacters = cache(
-  (characters: Character[], searchQuery: string): Character[] => {
-    return characters.filter((ch) =>
-      ch.name.toLowerCase().includes(searchQuery),
-    );
-  },
-);
-
-/**
- * Filters the characters in the character array by a provided value of the provided attribute.
- *
- */
-export function filterCharacters(
-  characters: Character[],
-  attribute: (typeof FILTERABLE_ATTRIBUTES)[number],
-  value: number | string | string[],
-): Character[] {
-  if (!Array.isArray(value))
-    return characters.filter((ch) => {
-      const typedValue =
-        typeof ch[attribute] === "number" ? Number(value) : value;
-
-      return ch[attribute] === typedValue;
-    });
-  else {
-    return characters.filter((ch) => {
-      return value.includes(String(ch[attribute]));
-    });
-  }
-}

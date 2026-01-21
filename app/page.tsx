@@ -1,11 +1,7 @@
 import AllianceBook from "@/components/alliance-book";
 import { TypographyH1 } from "@/components/ui/typography-h1";
-import { FILTERABLE_ATTRIBUTES } from "@/lib/constants";
-import {
-  filterCharacters,
-  getCharacters,
-  searchCharacters,
-} from "@/services/characters.service";
+import { getCharacters } from "@/services/characters.service";
+import { applyFilters } from "@/services/filtering.service";
 import { getPlanets } from "@/services/planets.service";
 import { Character, Planet, SearchParams } from "@/types/types";
 
@@ -25,36 +21,8 @@ export default async function Home({ searchParams }: HomepageProps) {
     `${process.env.DATA_URL}people/`,
   );
   const planets: Planet[] = await getPlanets(`${process.env.DATA_URL}planets/`);
-  let searchedCharacters: Character[] | null = null;
-  let filteredCharacters: Character[] | null = null;
 
-  // filters
-  Object.entries(resolvedSearchParams).forEach(([key, value]) => {
-    switch (key) {
-      case "search":
-        searchedCharacters = searchCharacters(
-          characters,
-          String(value)!.toLowerCase(),
-        );
-        break;
-      case "page":
-        break;
-      default:
-        if (
-          FILTERABLE_ATTRIBUTES.includes(
-            key as (typeof FILTERABLE_ATTRIBUTES)[number],
-          )
-        ) {
-          if (value)
-            filteredCharacters = filterCharacters(
-              filteredCharacters ?? searchedCharacters ?? characters,
-              key as (typeof FILTERABLE_ATTRIBUTES)[number],
-              value,
-            );
-        }
-        break;
-    }
-  });
+  const filteredCharacters = applyFilters(characters, resolvedSearchParams);
 
   return (
     <main className="flex flex-col gap-4 px-2 my-8 items-center">
@@ -62,7 +30,7 @@ export default async function Home({ searchParams }: HomepageProps) {
       <AllianceBook
         planets={planets}
         searchParams={resolvedSearchParams}
-        characters={filteredCharacters ?? searchedCharacters ?? characters}
+        characters={filteredCharacters}
         page={Number(resolvedSearchParams.page ?? 1)}
       />
     </main>
