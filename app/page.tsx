@@ -9,12 +9,12 @@ type HomepageProps = {
   searchParams: Promise<SearchParams>;
 };
 
-// warming the cache at build time
-export async function generateStaticParams() {
-  await getCharacters(process.env.DATA_URL);
-  await getPlanets(`${process.env.DATA_URL}planets/`);
-  return [];
-}
+// // warming the cache at build time
+// export async function generateStaticParams() {
+//   await getCharacters(process.env.DATA_URL);
+//   await getPlanets(`${process.env.DATA_URL}planets/`);
+//   return [];
+// }
 
 export default async function Home({ searchParams }: HomepageProps) {
   const resolvedSearchParams = await searchParams;
