@@ -47,6 +47,13 @@ function AllianceBook({
           <MultiSelectFilter
             attribute="gender"
             searchable={false}
+            defaultValue={
+              searchParams.gender
+                ? Array.isArray(searchParams.gender)
+                  ? searchParams.gender
+                  : [searchParams.gender]
+                : undefined
+            }
             placeholder="Filter Genders"
             options={GENDERS.map((gender) => ({
               value: gender,
@@ -55,6 +62,13 @@ function AllianceBook({
           />
           <MultiSelectFilter
             attribute="homeworldId"
+            defaultValue={
+              searchParams.homeworldId
+                ? Array.isArray(searchParams.homeworldId)
+                  ? searchParams.homeworldId
+                  : [searchParams.homeworldId]
+                : undefined
+            }
             placeholder="Filter Homeworlds"
             options={planets.map((planet) => ({
               value: String(planet.id),

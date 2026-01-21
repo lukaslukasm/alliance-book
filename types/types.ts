@@ -51,7 +51,9 @@ export interface Character extends Omit<
   starshipsIds: number[];
 }
 
-export type SearchParams = typeof FILTERABLE_ATTRIBUTES & {
+export type SearchParams = Partial<
+  Record<(typeof FILTERABLE_ATTRIBUTES)[number], string | string[]>
+> & {
   search?: string;
   page?: number;
 };
