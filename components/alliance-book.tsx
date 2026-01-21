@@ -13,6 +13,7 @@ import PaginationComponent from "./pagination-component";
 import Search from "./search";
 import MultiSelectFilter from "./filters/multi-select-filter";
 import { GENDERS } from "@/lib/constants";
+import FilterBar from "./filters/filter-bar";
 
 export type AllianceBookProps = {
   characters: Character[];
@@ -42,41 +43,8 @@ function AllianceBook({
         <CardDescription>
           Browse and learn about the characters from the Star Wars Universe.
         </CardDescription>
-        <Search value={searchParams.search} />
-        <div className="grid sm:grid-cols-2 sm:gap-3 gap-2">
-          <MultiSelectFilter
-            attribute="gender"
-            searchable={false}
-            defaultValue={
-              searchParams.gender
-                ? Array.isArray(searchParams.gender)
-                  ? searchParams.gender
-                  : [searchParams.gender]
-                : undefined
-            }
-            placeholder="Filter Genders"
-            options={GENDERS.map((gender) => ({
-              value: gender,
-              label: gender,
-            }))}
-          />
-          <MultiSelectFilter
-            attribute="homeworldId"
-            defaultValue={
-              searchParams.homeworldId
-                ? Array.isArray(searchParams.homeworldId)
-                  ? searchParams.homeworldId
-                  : [searchParams.homeworldId]
-                : undefined
-            }
-            placeholder="Filter Homeworlds"
-            options={planets.map((planet) => ({
-              value: String(planet.id),
-              label: planet.name,
-            }))}
-          />
-        </div>
       </CardHeader>
+      <FilterBar searchParams={searchParams} planets={planets} />
       <CardContent>
         <PeopleList
           characters={characters.slice(
