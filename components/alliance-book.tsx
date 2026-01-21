@@ -1,4 +1,4 @@
-import { Character, SearchParams } from "@/types/types";
+import { Character, Planet, SearchParams } from "@/types/types";
 import PeopleList from "./people-list";
 import {
   Card,
@@ -10,12 +10,13 @@ import {
 } from "./ui/card";
 
 import PaginationComponent from "./pagination-component";
-import Search from "./search";
+import FilterBar from "./filters/filter-bar";
 
 export type AllianceBookProps = {
   characters: Character[];
   page: number;
   searchParams: SearchParams;
+  planets: Planet[];
 };
 
 const PAGINATION_OFFSET = 12;
@@ -24,7 +25,12 @@ const PAGINATION_OFFSET = 12;
  * Root Client-side component. Renders the whole Alliance Book.
  *
  */
-function AllianceBook({ characters, page, searchParams }: AllianceBookProps) {
+function AllianceBook({
+  characters,
+  page,
+  searchParams,
+  planets,
+}: AllianceBookProps) {
   const pageCount = Math.ceil(characters.length / PAGINATION_OFFSET);
 
   return (
@@ -34,8 +40,12 @@ function AllianceBook({ characters, page, searchParams }: AllianceBookProps) {
         <CardDescription>
           Browse and learn about the characters from the Star Wars Universe.
         </CardDescription>
-        <Search />
       </CardHeader>
+      <FilterBar
+        searchParams={searchParams}
+        planets={planets}
+        totalResults={characters.length}
+      />
       <CardContent>
         <PeopleList
           characters={characters.slice(

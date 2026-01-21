@@ -1,7 +1,9 @@
 import AllianceBook from "@/components/alliance-book";
 import { TypographyH1 } from "@/components/ui/typography-h1";
-import { getCharacters, searchCharacters } from "@/services/characters.service";
-import { Character, SearchParams } from "@/types/types";
+import { getCharacters } from "@/services/characters.service";
+import { applyFilters } from "@/services/filtering.service";
+import { getPlanets } from "@/services/planets.service";
+import { Character, Planet, SearchParams } from "@/types/types";
 
 type HomepageProps = {
   searchParams: Promise<SearchParams>;
@@ -15,21 +17,20 @@ export async function generateStaticParams() {
 
 export default async function Home({ searchParams }: HomepageProps) {
   const resolvedSearchParams = await searchParams;
-  const characters: Character[] = await getCharacters(process.env.DATA_URL);
-  let filteredCharacters: Character[] | null = null;
+  const characters: Character[] = await getCharacters(
+    `${process.env.DATA_URL}people/`,
+  );
+  const planets: Planet[] = await getPlanets(`${process.env.DATA_URL}planets/`);
 
-  if (resolvedSearchParams.search)
-    filteredCharacters = searchCharacters(
-      characters,
-      resolvedSearchParams.search.toLowerCase(),
-    );
+  const filteredCharacters = applyFilters(characters, resolvedSearchParams);
 
   return (
     <main className="flex flex-col gap-4 px-2 my-8 items-center">
       <TypographyH1>The Alliance Book</TypographyH1>
       <AllianceBook
+        planets={planets}
         searchParams={resolvedSearchParams}
-        characters={filteredCharacters ?? characters}
+        characters={filteredCharacters}
         page={Number(resolvedSearchParams.page ?? 1)}
       />
     </main>

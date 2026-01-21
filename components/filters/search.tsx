@@ -1,16 +1,16 @@
 "use client";
 import { useState, useTransition } from "react";
-import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 /**
  * Returns a Search form component.
  *
  */
-export default function Search() {
-  const [query, setQuery] = useState("");
+export default function Search({ value }: { value?: string }) {
+  const [query, setQuery] = useState(value ?? "");
   const [, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -51,7 +51,9 @@ export default function Search() {
             setQuery("");
             handleSearch("");
           }}
-          variant="outline"
+          variant={null}
+          size="icon"
+          className="-ml-14"
         >
           <X />
         </Button>
