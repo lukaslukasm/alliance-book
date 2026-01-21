@@ -29,6 +29,8 @@ A small journal of all people in Star Wars movies.
 
 - **Decoupled.** Greenfield projects like this one tend to grow in features. Thus I prioritized decoupling functions and components from data-specific shapes where possible.
 
+- **Extra.** After click on the Character in the list, a modal window pops out with extended info about the character. That's also why character cards themselves do not feature any info about the characters.
+
 ## Run it locally
 
 Run the development server:
