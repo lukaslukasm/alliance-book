@@ -32,7 +32,7 @@ export default function PaginationComponent({
     );
 
     flattenedFilters.forEach(([key, value]) => {
-      newURL.append(key, `${value}`);
+      newURL.append(`${key}`, `${value}`);
     });
     newURL.set("page", targetPageId.toString());
 
