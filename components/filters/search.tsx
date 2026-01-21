@@ -1,9 +1,9 @@
 "use client";
 import { useState, useTransition } from "react";
-import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 /**
  * Returns a Search form component.

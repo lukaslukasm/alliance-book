@@ -10,9 +10,6 @@ import {
 } from "./ui/card";
 
 import PaginationComponent from "./pagination-component";
-import Search from "./search";
-import MultiSelectFilter from "./filters/multi-select-filter";
-import { GENDERS } from "@/lib/constants";
 import FilterBar from "./filters/filter-bar";
 
 export type AllianceBookProps = {
@@ -44,7 +41,11 @@ function AllianceBook({
           Browse and learn about the characters from the Star Wars Universe.
         </CardDescription>
       </CardHeader>
-      <FilterBar searchParams={searchParams} planets={planets} />
+      <FilterBar
+        searchParams={searchParams}
+        planets={planets}
+        totalResults={characters.length}
+      />
       <CardContent>
         <PeopleList
           characters={characters.slice(

@@ -2,19 +2,25 @@ import { GENDERS } from "@/lib/constants";
 import MultiSelectFilter from "./multi-select-filter";
 import Search from "./search";
 import { Planet, SearchParams } from "@/types/types";
+import { TypographyMuted } from "../ui/typography-muted";
 
 type FilterBarParams = {
   searchParams: SearchParams;
   planets: Planet[];
+  totalResults: number;
 };
 
 /**
  * A composite UI component that manages the search input and categorical filters.
  *
  */
-export default function FilterBar({ searchParams, planets }: FilterBarParams) {
+export default function FilterBar({
+  searchParams,
+  planets,
+  totalResults,
+}: FilterBarParams) {
   return (
-    <div className="">
+    <div className="flex flex-col gap-1 px-3 sm:px-6 sm:gap-3">
       <Search value={searchParams.search} />
       <div className="grid sm:grid-cols-2 sm:gap-3 gap-2">
         <MultiSelectFilter
@@ -49,6 +55,9 @@ export default function FilterBar({ searchParams, planets }: FilterBarParams) {
           }))}
         />
       </div>
+      <TypographyMuted className="">
+        Showing {totalResults} results
+      </TypographyMuted>
     </div>
   );
 }
