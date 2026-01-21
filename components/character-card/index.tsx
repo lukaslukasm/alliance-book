@@ -1,38 +1,21 @@
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Character } from "@/types/types";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Character, Planet } from "@/types/types";
 import { CharacterCardFace } from "./character-card-face";
+import CharacterCardExpanded from "./character-card-expanded";
 
-export function CharacterCard({ character }: { character: Character }) {
+export function CharacterCard({
+  character,
+  planets,
+}: {
+  character: Character;
+  planets: Planet[];
+}) {
   return (
     <Dialog>
       <DialogTrigger>
         <CharacterCardFace character={character} />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-106.25">
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4"></div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </DialogContent>
+      <CharacterCardExpanded character={character} planets={planets} />
     </Dialog>
   );
 }

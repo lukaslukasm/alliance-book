@@ -1,12 +1,6 @@
 import Image from "next/image";
 
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemHeader,
-  ItemTitle,
-} from "@/components/ui/item";
+import { Item, ItemContent, ItemHeader, ItemTitle } from "@/components/ui/item";
 import { Character } from "@/types/types";
 
 export function CharacterCardFace({ character }: { character: Character }) {
@@ -14,7 +8,7 @@ export function CharacterCardFace({ character }: { character: Character }) {
     <Item
       key={character.name}
       variant="outline"
-      className="max-w-44 items-start flex"
+      className="max-w-44 items-start flex h-full"
     >
       <ItemHeader className="relative w-full aspect-5/7">
         <Image
@@ -28,12 +22,6 @@ export function CharacterCardFace({ character }: { character: Character }) {
       </ItemHeader>
       <ItemContent>
         <ItemTitle>{character.name}</ItemTitle>
-        <ItemDescription>
-          {character.speciesId && character.speciesId === 2
-            ? "Created"
-            : "Born"}
-          : {character.birth_year}
-        </ItemDescription>
       </ItemContent>
     </Item>
   );
