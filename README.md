@@ -15,6 +15,20 @@ A small journal of all people in Star Wars movies.
 
 - **May the Force (of Next.js) be with you.** Using `searchParams` puts us strictly into SSR teritory, which executes the heavy data aggregation request-time. That is not ideal. However, utilizing Next's force-cache on the `fetch()` and clever execution of the data aggregation inside `generateStaticProps` (even without utilizing the result), we get a warm server cache with all of the data at build-time and all of the fetches afterwards hit just the cache.
 
+## Features
+
+- **multi-select filters by attributes homeworld and gender.** In order to demonstate my capabilities I've decided to show one filtering implementation for hardcoded values, gender, and one for data objects fetched from the API.
+
+- **Generalized implementation of filter application.** The filtering capabilities are (partly) prepared to be expanded to another attributes.
+
+- **Meets 100% of the requirements.** Responsivity, accessibility, maintainablity, leveraging of Next's capabilities; SSG, SSR, force-fetching and more.
+
+- **Ready for coop.** Tight typescript, TS-friendly JSDoc, components and funcitonality broken down to smaller, well defined functions.
+
+- **Intentionally empty Prettier config.** I am completely flexible to you customs, I use it just to make the code uniformly formatted.
+
+- **Decoupled.** Greenfield projects like this one tend to grow in features. Thus I prioritized decoupling functions and components from data-specific shapes where possible.
+
 ## Run it locally
 
 Run the development server:
