@@ -51,7 +51,9 @@ export default function Search({ value }: { value?: string }) {
             setQuery("");
             handleSearch("");
           }}
-          variant="outline"
+          variant={null}
+          size="icon"
+          className="-ml-14"
         >
           <X />
         </Button>
