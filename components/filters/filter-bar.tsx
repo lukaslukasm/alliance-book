@@ -20,7 +20,7 @@ export default function FilterBar({
   totalResults,
 }: FilterBarParams) {
   return (
-    <div className="flex flex-col gap-1 px-3 sm:px-6 sm:gap-3">
+    <div className="flex flex-col gap-2 px-3 sm:px-6 sm:gap-3">
       <Search value={searchParams.search} />
       <div className="grid sm:grid-cols-2 sm:gap-3 gap-2">
         <MultiSelectFilter
@@ -55,7 +55,7 @@ export default function FilterBar({
           }))}
         />
       </div>
-      <TypographyMuted className="">
+      <TypographyMuted className="ml-4">
         Showing {totalResults} results
       </TypographyMuted>
     </div>
