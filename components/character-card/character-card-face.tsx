@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/item";
 import { Character } from "@/types/types";
 
-export function CharacterTile({ character }: { character: Character }) {
+export function CharacterCardFace({ character }: { character: Character }) {
   return (
     <Item
       key={character.name}
