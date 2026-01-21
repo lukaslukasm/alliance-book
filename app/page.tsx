@@ -12,6 +12,7 @@ type HomepageProps = {
 // warming the cache at build time
 export async function generateStaticParams() {
   await getCharacters(process.env.DATA_URL);
+  await getPlanets(`${process.env.DATA_URL}planets/`);
   return [];
 }
 
